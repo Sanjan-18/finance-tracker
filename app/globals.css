@@ -113,6 +113,14 @@ html.dark body {
 /* FINANCE TRACK SIDEBAR */
 /* ================================= */
 
+.finance-app-layout {
+  min-height: 100vh;
+  background: var(--finance-bg);
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+}
+
 .finance-sidebar {
   position: fixed;
   left: 0;
@@ -126,15 +134,33 @@ html.dark body {
   flex-direction: column;
   z-index: 1000;
   box-sizing: border-box;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  max-height: 100vh;
   transition:
-    transform 0.25s ease,
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
     background-color 0.2s ease;
+}
+
+/* Custom scrollbar for sidebar */
+.finance-sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.finance-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.finance-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
 }
 
 .finance-mobile-topbar {
   display: none;
   background: var(--finance-sidebar);
   color: var(--finance-sidebar-text);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .finance-sidebar-overlay {
@@ -146,10 +172,59 @@ html.dark body {
 /* ================================= */
 
 .finance-main-content {
-  margin-left: 250px !important;
+  margin-left: 250px;
+  min-height: 100vh;
+  width: calc(100% - 250px);
+  max-width: 100%;
+  background: var(--finance-bg);
+  transition:
+    margin-left 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+/* ================================= */
+/* RESPONSIVE LAYOUT & UTILITIES */
+/* ================================= */
+
+.finance-page-wrapper {
+  width: 100%;
   min-height: 100vh;
   background: var(--finance-bg);
-  transition: background-color 0.2s ease;
+  padding: 34px 28px 60px;
+  box-sizing: border-box;
+  color: var(--finance-text);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.finance-container {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.finance-responsive-table {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+  margin-top: 18px;
+}
+
+.finance-responsive-table::-webkit-scrollbar {
+  height: 6px;
+}
+
+.finance-responsive-table::-webkit-scrollbar-track {
+  background: var(--finance-border-light);
+  border-radius: 4px;
+}
+
+.finance-responsive-table::-webkit-scrollbar-thumb {
+  background: var(--finance-border);
+  border-radius: 4px;
 }
 
 /* ================================= */
@@ -175,6 +250,7 @@ html.dark body {
   border-radius: 10px;
   padding: 11px 13px;
   outline: none;
+  box-sizing: border-box;
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease,
@@ -195,8 +271,14 @@ html.dark body {
   border: 0;
   border-radius: 10px;
   padding: 10px 16px;
+  min-height: 42px;
   cursor: pointer;
   font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-sizing: border-box;
   transition:
     transform 0.15s ease,
     opacity 0.15s ease,
@@ -231,10 +313,11 @@ html.dark body {
 }
 
 /* ================================= */
-/* MOBILE SIDEBAR */
+/* RESPONSIVE BREAKPOINTS */
 /* ================================= */
 
-@media (max-width: 768px) {
+/* Tablets and small laptops (<= 860px) */
+@media (max-width: 860px) {
   .finance-mobile-topbar {
     position: fixed;
     display: flex;
@@ -244,15 +327,18 @@ html.dark body {
     left: 0;
     right: 0;
     height: 64px;
-    padding: 0 18px;
+    padding: 0 16px;
     color: var(--finance-sidebar-text);
     z-index: 900;
     box-sizing: border-box;
+    backdrop-filter: blur(12px);
   }
 
   .finance-sidebar {
     transform: translateX(-100%);
-    width: 250px;
+    width: 270px;
+    max-width: 85vw;
+    box-shadow: 4px 0 25px rgba(0, 0, 0, 0.35);
   }
 
   .finance-sidebar-open {
@@ -263,23 +349,44 @@ html.dark body {
     display: block;
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
     z-index: 950;
+    animation: fadeIn 0.2s ease;
   }
 
   .finance-main-content {
     margin-left: 0 !important;
+    width: 100% !important;
     padding-top: 64px;
+  }
+
+  .finance-page-wrapper {
+    padding: 24px 20px 50px;
   }
 }
 
-/* ================================= */
-/* SMALL MOBILE SCREENS */
-/* ================================= */
+/* Mobile Phones (<= 640px) */
+@media (max-width: 640px) {
+  .finance-page-wrapper {
+    padding: 18px 14px 40px;
+  }
+}
 
+/* Small Mobile Phones (<= 480px) */
 @media (max-width: 480px) {
-  .finance-main-content {
-    width: 100%;
+  .finance-page-wrapper {
+    padding: 14px 12px 36px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }
 
@@ -288,6 +395,7 @@ html.dark body {
 /* ================================= */
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -295,5 +403,320 @@ html.dark body {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+/* ================================= */
+/* PAGE-LEVEL WRAPPERS (shared base) */
+/* All custom page classes get the   */
+/* same padding, bg, and max-width   */
+/* via these shared rules.           */
+/* ================================= */
+
+.budgets-page,
+.goals-page,
+.categories-page,
+.analytics-page {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--finance-bg);
+  color: var(--finance-text);
+  box-sizing: border-box;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.budgets-container,
+.goals-container,
+.categories-container {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Headers: allow wrap on narrow screens */
+.budgets-header,
+.goals-header,
+.categories-header,
+.analytics-page .page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* ================================= */
+/* GRIDS — responsive auto-fit       */
+/* ================================= */
+
+/* Summary stat cards */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+/* Budget cards */
+.budget-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px;
+}
+
+/* Charts */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+/* Form grids — two columns by default, 1 on mobile */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* ================================= */
+/* TRANSACTIONS PAGE FILTER GRID     */
+/* ================================= */
+
+/* The transactions filter bar is an  */
+/* inline-styled flex row — we add    */
+/* a wrapping rule via the section    */
+/* descendant so it stacks on mobile. */
+
+/* ================================= */
+/* BREAKPOINTS — TABLET (≤ 860px)    */
+/* ================================= */
+@media (max-width: 860px) {
+
+  /* Page wrappers */
+  .budgets-page,
+  .goals-page,
+  .categories-page,
+  .analytics-page {
+    padding-top: 64px;
+    /* clear mobile topbar */
+  }
+
+  /* Headers stack vertically */
+  .budgets-header,
+  .goals-header,
+  .categories-header,
+  .analytics-page .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Form: 2 → 1 column */
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Charts: full width */
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Budget grid: 1 per row on tablet */
+  .budget-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Summary cards: 2 per row on tablet */
+  .summary-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+
+  /* Goal/budget progress panels */
+  .overview-panel,
+  .create-panel,
+  .panel {
+    padding: 20px 16px;
+  }
+
+  /* Back-button full width on mobile */
+  .back-button {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}
+
+/* ================================= */
+/* BREAKPOINTS — PHONE (≤ 640px)     */
+/* ================================= */
+@media (max-width: 640px) {
+
+  /* Summary cards: 1 per row */
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Smaller headings */
+  .budgets-page h1,
+  .goals-page h1,
+  .categories-page h1,
+  .analytics-page h1 {
+    font-size: 26px;
+  }
+
+  /* Goal savings card: stack */
+  .goal-savings-card {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Card actions: stack buttons */
+  .card-actions {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  /* Form buttons: full-width */
+  .form-buttons {
+    flex-direction: column;
+  }
+
+  .form-buttons button,
+  .form-buttons a {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  /* Primary/cancel buttons: full width */
+  .primary-button,
+  .cancel-button {
+    width: 100% !important;
+    text-align: center;
+  }
+}
+
+/* ================================= */
+/* BREAKPOINTS — SMALL (≤ 480px)     */
+/* ================================= */
+@media (max-width: 480px) {
+
+  .budgets-page h1,
+  .goals-page h1,
+  .categories-page h1,
+  .analytics-page h1 {
+    font-size: 22px;
+  }
+
+  /* Budget card top: stack icon + title */
+  .budget-card-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  /* Reduce card padding */
+  .budget-card,
+  .summary-card,
+  .chart-card {
+    padding: 16px !important;
+  }
+}
+
+/* ================================= */
+/* TRANSACTIONS PAGE SPECIFIC         */
+/* ================================= */
+
+/* Filter row: allow wrapping */
+@media (max-width: 860px) {
+
+  /* The filterGridStyle div uses inline flex — override with !important */
+  .finance-page-wrapper section div[style*="display"] {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 640px) {
+
+  /* Ensure transaction form fields stack */
+  .finance-page-wrapper .form-grid,
+  .finance-page-wrapper [style*="gridTemplateColumns"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ================================= */
+/* AUTH PAGES (login / register)     */
+/* ================================= */
+
+/* The auth pages center a card with inline styles.
+   These rules improve the card on very small screens. */
+@media (max-width: 480px) {
+
+  /* Reduce padding inside the form card */
+  main>form[style] {
+    padding: 22px 18px !important;
+  }
+
+  main>form[style] h1 {
+    font-size: 22px !important;
+  }
+
+  /* Google sign-in button: full width */
+  main>form[style] button[style] {
+    width: 100% !important;
+    justify-content: center;
+  }
+}
+
+/* ================================= */
+/* GLOBAL TYPOGRAPHY SCALING         */
+/* ================================= */
+
+@media (max-width: 640px) {
+
+  .finance-page-wrapper h1,
+  .finance-container h1 {
+    font-size: clamp(22px, 6vw, 34px);
+    letter-spacing: -0.5px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .finance-page-wrapper h1,
+  .finance-container h1 {
+    font-size: clamp(20px, 5.5vw, 26px);
+  }
+}
+
+/* ================================= */
+/* DASHBOARD SPECIFIC GRIDS          */
+/* ================================= */
+
+/* Dashboard summary stat cards that use auto-fit */
+@media (max-width: 640px) {
+
+  /* Force single-column stat grids on small phones */
+  .finance-container [style*="auto-fit"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ================================= */
+/* SAFE AREA INSETS (iOS notch etc.) */
+/* ================================= */
+
+@supports (padding: max(0px)) {
+  .finance-mobile-topbar {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+
+  .finance-page-wrapper,
+  .budgets-page,
+  .goals-page,
+  .categories-page,
+  .analytics-page {
+    padding-bottom: max(40px, env(safe-area-inset-bottom));
   }
 }

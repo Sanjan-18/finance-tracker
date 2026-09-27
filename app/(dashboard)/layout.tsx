@@ -6,23 +6,12 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#f5f7fb",
-      }}
-    >
+    <div className="finance-app-layout">
       <Sidebar />
 
-      <main
-        className="finance-main-content"
-        style={{
-          marginLeft: 250,
-          minHeight: "100vh",
-        }}
-      >
+      <main className="finance-main-content">
         {children}
       </main>
     </div>
   );
-}
+}

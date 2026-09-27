@@ -368,8 +368,8 @@ export default function TransactionsPage() {
   }
 
   return (
-    <main style={pageStyle}>
-      <div style={containerStyle}>
+    <main className="finance-page-wrapper">
+      <div className="finance-container">
 
         {/* HEADER */}
         <header style={headerStyle}>

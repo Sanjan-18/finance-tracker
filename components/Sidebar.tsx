@@ -48,6 +48,40 @@ export default function Sidebar() {
   const [themeLoaded, setThemeLoaded] = useState(false);
 
   /*
+   * Prevent background scrolling on mobile when menu is open
+   */
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  /*
+   * Close menu on escape key
+   */
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && mobileOpen) {
+        setMobileOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [mobileOpen]);
+
+  /*
+   * Auto close menu on navigation
+   */
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  /*
    * Load saved theme
    */
   useEffect(() => {
@@ -126,6 +160,7 @@ export default function Sidebar() {
             onClick={() => setMobileOpen(!mobileOpen)}
             style={mobileMenuButtonStyle}
             aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? "✕" : "☰"}
           </button>
@@ -537,20 +572,24 @@ const themeButtonStyle = {
   border: "none",
   background: "rgba(255,255,255,.1)",
   color: "white",
-  width: 40,
-  height: 40,
-  borderRadius: 8,
+  width: 44,
+  height: 44,
+  borderRadius: 10,
   fontSize: 18,
   cursor: "pointer",
+  display: "grid",
+  placeItems: "center",
 };
 
 const mobileMenuButtonStyle = {
   border: "none",
   background: "rgba(255,255,255,.1)",
   color: "white",
-  width: 40,
-  height: 40,
-  borderRadius: 8,
+  width: 44,
+  height: 44,
+  borderRadius: 10,
   fontSize: 20,
   cursor: "pointer",
-};
+  display: "grid",
+  placeItems: "center",
+};

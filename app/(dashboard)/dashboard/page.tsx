@@ -153,8 +153,8 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <main style={pageStyle}>
-        <div style={containerStyle}>
+      <main className="finance-page-wrapper">
+        <div className="finance-container">
           <div style={loadingCardStyle}>
             <div style={loadingIconStyle}>
               ₹
@@ -176,8 +176,8 @@ export default function DashboardPage() {
 
   if (error || !data) {
     return (
-      <main style={pageStyle}>
-        <div style={containerStyle}>
+      <main className="finance-page-wrapper">
+        <div className="finance-container">
           <div style={errorCardStyle}>
             <div style={errorIconStyle}>
               !
@@ -227,20 +227,20 @@ export default function DashboardPage() {
     : "#e5e7eb";
 
   return (
-    <main style={pageStyle}>
-      <div style={containerStyle}>
+    <main className="finance-page-wrapper">
+      <div className="finance-container">
 
         {/* ================================= */}
         {/* HEADER */}
         {/* ================================= */}
 
-        <header style={headerStyle}>
+        <header className="dashboard-header">
           <div>
             <p style={eyebrowStyle}>
               FINANCIAL OVERVIEW
             </p>
 
-            <h1 style={titleStyle}>
+            <h1 className="dashboard-title">
               Dashboard
             </h1>
 
@@ -250,13 +250,7 @@ export default function DashboardPage() {
             </p>
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              gap: 10,
-              flexWrap: "wrap",
-            }}
-          >
+          <div className="dashboard-header-actions">
             <Link
               href="/goals"
               style={goalButtonStyle}
@@ -649,12 +643,7 @@ export default function DashboardPage() {
               </Link>
             </div>
           ) : (
-            <div
-              style={{
-                overflowX: "auto",
-                marginTop: 20,
-              }}
-            >
+            <div className="finance-responsive-table">
               <table
                 style={tableStyle}
               >
@@ -940,19 +929,7 @@ function SummaryCard({
 /* PAGE STYLES */
 /* ================================= */
 
-const pageStyle = {
-  minHeight: "100vh",
-  background:
-    "var(--finance-bg)",
-  padding: "34px 28px",
-  color:
-    "var(--finance-text)",
-};
-
-const containerStyle = {
-  maxWidth: 1250,
-  margin: "0 auto",
-};
+/* pageStyle and containerStyle are now handled by finance-page-wrapper and finance-container CSS classes */
 
 const headerStyle = {
   display: "flex",
