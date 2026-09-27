@@ -626,21 +626,77 @@ html.dark body {
 /* TRANSACTIONS PAGE SPECIFIC         */
 /* ================================= */
 
-/* Filter row: allow wrapping */
-@media (max-width: 860px) {
+.transactions-filter-grid {
+  display: grid;
+  grid-template-columns: minmax(200px, 2fr) minmax(130px, 1fr) minmax(130px, 1fr) auto;
+  gap: 12px;
+  margin-top: 20px;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-  /* The filterGridStyle div uses inline flex — override with !important */
-  .finance-page-wrapper section div[style*="display"] {
-    flex-wrap: wrap;
+.transactions-filter-grid > * {
+  min-width: 0; /* Prevents grid children from overflowing container */
+}
+
+.transactions-filter-grid .search-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.transactions-filter-grid select {
+  width: 100%;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+}
+
+.transactions-filter-grid .clear-filter-btn {
+  white-space: nowrap;
+}
+
+/* Tablet (≤ 860px): Search takes full top row, filters share the second row */
+@media (max-width: 860px) {
+  .transactions-filter-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .transactions-filter-grid .search-wrapper {
+    grid-column: 1 / -1;
+  }
+
+  .transactions-filter-grid .clear-filter-btn {
+    grid-column: 1 / -1;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
   }
 }
 
+/* Mobile (≤ 640px): Full-width vertical stack for comfortable tap targets */
 @media (max-width: 640px) {
+  .transactions-filter-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
 
-  /* Ensure transaction form fields stack */
-  .finance-page-wrapper .form-grid,
-  .finance-page-wrapper [style*="gridTemplateColumns"] {
-    grid-template-columns: 1fr !important;
+  .transactions-filter-grid .search-wrapper,
+  .transactions-filter-grid select,
+  .transactions-filter-grid .clear-filter-btn {
+    grid-column: 1 / -1;
+    width: 100% !important;
+  }
+
+  /* Reduce section card padding on mobile so content isn't squished */
+  .finance-page-wrapper section {
+    padding: 18px 14px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .finance-page-wrapper section {
+    padding: 16px 12px !important;
   }
 }
 

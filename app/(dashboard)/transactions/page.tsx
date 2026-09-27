@@ -706,10 +706,11 @@ export default function TransactionsPage() {
             </div>
           </div>
 
-          <div style={filterGridStyle}>
+          <div className="transactions-filter-grid">
 
             {/* SEARCH */}
             <div
+              className="search-wrapper"
               style={searchWrapperStyle}
             >
               <span style={searchIconStyle}>
@@ -790,6 +791,7 @@ export default function TransactionsPage() {
                     "ALL"
                   );
                 }}
+                className="clear-filter-btn"
                 style={
                   clearFilterButtonStyle
                 }
