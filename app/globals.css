@@ -1,0 +1,299 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+html {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f7fb;
+  color: #172033;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* ================================= */
+/* GLOBAL THEME VARIABLES */
+/* ================================= */
+
+:root {
+  --finance-bg: #f5f7fb;
+  --finance-surface: #ffffff;
+  --finance-surface-secondary: #f8fafc;
+
+  --finance-text: #172033;
+  --finance-text-secondary: #475569;
+  --finance-text-muted: #64748b;
+  --finance-text-light: #94a3b8;
+
+  --finance-border: #e5e7eb;
+  --finance-border-light: #eef2f7;
+
+  --finance-primary: #4f46e5;
+  --finance-primary-light: #eef2ff;
+
+  --finance-success: #059669;
+  --finance-success-light: #ecfdf5;
+
+  --finance-danger: #dc2626;
+  --finance-danger-light: #fef2f2;
+
+  --finance-warning: #d97706;
+  --finance-warning-light: #fffbeb;
+
+  --finance-sidebar: #172033;
+  --finance-sidebar-text: #ffffff;
+
+  --finance-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+}
+
+/* ================================= */
+/* DARK THEME */
+/* ================================= */
+
+html.dark {
+  --finance-bg: #0f172a;
+  --finance-surface: #172033;
+  --finance-surface-secondary: #1e293b;
+
+  --finance-text: #f8fafc;
+  --finance-text-secondary: #cbd5e1;
+  --finance-text-muted: #94a3b8;
+  --finance-text-light: #64748b;
+
+  --finance-border: #334155;
+  --finance-border-light: #293548;
+
+  --finance-primary: #818cf8;
+  --finance-primary-light: #312e81;
+
+  --finance-success: #34d399;
+  --finance-success-light: #064e3b;
+
+  --finance-danger: #f87171;
+  --finance-danger-light: #7f1d1d;
+
+  --finance-warning: #fbbf24;
+  --finance-warning-light: #78350f;
+
+  --finance-sidebar: #020617;
+  --finance-sidebar-text: #f8fafc;
+
+  --finance-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+html.dark body {
+  background: var(--finance-bg);
+  color: var(--finance-text);
+}
+
+/* ================================= */
+/* FINANCE TRACK SIDEBAR */
+/* ================================= */
+
+.finance-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 250px;
+  background: var(--finance-sidebar);
+  color: var(--finance-sidebar-text);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  box-sizing: border-box;
+  transition:
+    transform 0.25s ease,
+    background-color 0.2s ease;
+}
+
+.finance-mobile-topbar {
+  display: none;
+  background: var(--finance-sidebar);
+  color: var(--finance-sidebar-text);
+}
+
+.finance-sidebar-overlay {
+  display: none;
+}
+
+/* ================================= */
+/* MAIN CONTENT */
+/* ================================= */
+
+.finance-main-content {
+  margin-left: 250px !important;
+  min-height: 100vh;
+  background: var(--finance-bg);
+  transition: background-color 0.2s ease;
+}
+
+/* ================================= */
+/* GENERIC GLOBAL COMPONENT STYLES */
+/* ================================= */
+
+.finance-card {
+  background: var(--finance-surface);
+  border: 1px solid var(--finance-border);
+  border-radius: 16px;
+  box-shadow: var(--finance-shadow);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.finance-input {
+  width: 100%;
+  background: var(--finance-surface);
+  color: var(--finance-text);
+  border: 1px solid var(--finance-border);
+  border-radius: 10px;
+  padding: 11px 13px;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.finance-input:focus {
+  border-color: var(--finance-primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+.finance-input::placeholder {
+  color: var(--finance-text-light);
+}
+
+.finance-button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 700;
+  transition:
+    transform 0.15s ease,
+    opacity 0.15s ease,
+    background-color 0.2s ease;
+}
+
+.finance-button:hover {
+  transform: translateY(-1px);
+}
+
+.finance-button:active {
+  transform: translateY(0);
+}
+
+.finance-button-primary {
+  background: var(--finance-primary);
+  color: white;
+}
+
+.finance-button-primary:hover {
+  opacity: 0.92;
+}
+
+.finance-button-danger {
+  background: var(--finance-danger-light);
+  color: var(--finance-danger);
+}
+
+.finance-button-success {
+  background: var(--finance-success-light);
+  color: var(--finance-success);
+}
+
+/* ================================= */
+/* MOBILE SIDEBAR */
+/* ================================= */
+
+@media (max-width: 768px) {
+  .finance-mobile-topbar {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    padding: 0 18px;
+    color: var(--finance-sidebar-text);
+    z-index: 900;
+    box-sizing: border-box;
+  }
+
+  .finance-sidebar {
+    transform: translateX(-100%);
+    width: 250px;
+  }
+
+  .finance-sidebar-open {
+    transform: translateX(0);
+  }
+
+  .finance-sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 950;
+  }
+
+  .finance-main-content {
+    margin-left: 0 !important;
+    padding-top: 64px;
+  }
+}
+
+/* ================================= */
+/* SMALL MOBILE SCREENS */
+/* ================================= */
+
+@media (max-width: 480px) {
+  .finance-main-content {
+    width: 100%;
+  }
+}
+
+/* ================================= */
+/* REDUCED MOTION */
+/* ================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
